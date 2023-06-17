@@ -1,4 +1,3 @@
-'use client'
 import { client } from "@/lib/sanityClient";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";

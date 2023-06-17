@@ -7,29 +7,10 @@ import urlFor from "@/helper/imageUrl";
 import React, { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 
-const getProductDetail = async (id: number) => {
-  const res = await client.fetch(`*[_type== 'products' && _id=='${id}'][0]`);
-  return res;
-};
-
-const CartDetails =({ productId }: { productId: number }) => {
+const CartDetails =({ product }: any) => {
   const [quality, setQuality] = useState(1);
-  const [data, setData] = useState<any>(null);
+  const data = product;
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getProductDetail(productId);
-        setData(res);
-        console.log(res, "dasgjhdgasdghasjdajh");
-      } catch (error) {
-        console.error("Error fetching product details:", error);
-      }
-    };
-
-    fetchData();
-  }, [productId]);
 
   const addToCart = () => {
     toast.success("Successfully added!");
