@@ -34,6 +34,7 @@ export default async function Home() {
                         height="600"
                         className="h-[291px] w-[275px] object-cover bg-blue-100"
                         src={urlFor(data.image).url()}
+                        unoptimized={true}
                       />
                     </div>
                   </Suspense>

@@ -11,6 +11,7 @@ const Footer = () => {
               fetchPriority="high"
               width="136"
               height="24"
+              unoptimized={true} 
               src="https://hackathon-with-shadcn-ui.vercel.app/_next/image?url=%2FLogo.webp&w=256&q=75"
             />
           </a>
@@ -106,13 +107,13 @@ const Footer = () => {
         <div className="flex flex-col items-start justify-between space-x-0 space-y-5 px-5 py-4 sm:px-10 md:px-16 md:py-8 lg:flex-row lg:space-x-20 lg:space-y-0 lg:px-20">
           <div className="">Copyright © 2023 Dine Market</div>
           <div className="">
-            Design by.
+            Design by : 
             <span className="text-lg font-semibold text-gray-900">
-              Numan's
+              Numan&apos;s
             </span>
           </div>
-          <div className="">
-            Code By.
+          <div>
+            Code By : 
             <span className="text-lg font-semibold text-gray-900">
               github.com
             </span>

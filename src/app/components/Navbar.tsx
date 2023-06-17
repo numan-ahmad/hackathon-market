@@ -21,9 +21,12 @@ const Navbar = () => {
             <div className="flex-shrink-0">
               <Link href="/">
                 <Image
+                  width={150}
+                  height={150}
                   className="h-8"
                   src="https://hackathon-with-shadcn-ui.vercel.app/_next/image?url=%2FLogo.webp&w=256&q=75"
                   alt="Logo"
+                  unoptimized={true} 
                 />
               </Link>
             </div>

@@ -12,7 +12,7 @@ const getProductDetail = async (id: number) => {
   return res;
 };
 
-const CartDetails = React.memo(({ productId }: { productId: number }) => {
+const CartDetails =({ productId }: { productId: number }) => {
   const [quality, setQuality] = useState(1);
   const [data, setData] = useState<any>(null);
   const dispatch = useDispatch();
@@ -68,6 +68,7 @@ const CartDetails = React.memo(({ productId }: { productId: number }) => {
                         alt="product image"
                         width="100"
                         height="100"
+                        unoptimized={true} 
                         className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
                         src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
                       />
@@ -75,6 +76,7 @@ const CartDetails = React.memo(({ productId }: { productId: number }) => {
                         alt="product image"
                         width="100"
                         height="100"
+                        unoptimized={true} 
                         className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
                         src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
                       />
@@ -82,6 +84,7 @@ const CartDetails = React.memo(({ productId }: { productId: number }) => {
                         alt="product image"
                         width="100"
                         height="100"
+                        unoptimized={true} 
                         className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
                         src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
                       />
@@ -89,6 +92,7 @@ const CartDetails = React.memo(({ productId }: { productId: number }) => {
                         alt="product image"
                         width="100"
                         height="100"
+                        unoptimized={true} 
                         className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
                         src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
                       />
@@ -98,6 +102,7 @@ const CartDetails = React.memo(({ productId }: { productId: number }) => {
                         alt="product image"
                         width="600"
                         height="500"
+                        unoptimized={true} 
                         className="object-cover rounded-xl bg-blue-100"
                         src={urlFor(data.image).url()}
                       />
@@ -300,6 +305,6 @@ const CartDetails = React.memo(({ productId }: { productId: number }) => {
       </Suspense>
     </div>
   );
-});
+};
 
 export default CartDetails;

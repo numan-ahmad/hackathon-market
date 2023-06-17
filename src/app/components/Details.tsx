@@ -70,6 +70,7 @@ const Details = () => {
                 alt="feature bg-blue-100"
                 width="325"
                 height="400"
+                unoptimized={true} 
                 src="https://hackathon-dine-market.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffeature.1118a2f3.png&w=384&q=75"
               />
             </div>

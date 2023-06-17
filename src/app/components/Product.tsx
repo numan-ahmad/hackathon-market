@@ -25,7 +25,9 @@ export default function Product({ data }: any) {
                     width="600"
                     height="600"
                     className="h-[344px] w-[325px] object-cover bg-blue-100"
-                    src={urlFor(valu.image).url()}                  />
+                    src={urlFor(valu.image).url()}
+                    unoptimized={true} 
+                  />
                 </div>
                 <h2 className="mt-2 text-lg font-semibold">{valu.title}</h2>
                 <h4 className="mt-2 text-lg font-semibold">${valu.price}</h4>

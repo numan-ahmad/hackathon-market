@@ -20,6 +20,7 @@ const Prromotions = () => {
               width="282"
               height="218"
               className="mx-auto"
+              unoptimized={true} 
               src="https://hackathon-dine-market.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fpromotion1.6f776995.png&w=384&q=75"
             />
           </div>
@@ -47,6 +48,7 @@ const Prromotions = () => {
               width="282"
               height="362"
               className="mx-auto"
+              unoptimized={true} 
               src="https://hackathon-dine-market.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fpromotion2.b5f201ac.png&w=384&q=75"
             />
           </div>
@@ -63,6 +65,7 @@ const Prromotions = () => {
               width="282"
               height="368"
               className="mx-auto"
+              unoptimized={true} 
               src="https://hackathon-dine-market.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fpromotion3.798fa92b.png&w=384&q=75"
             />
           </div>

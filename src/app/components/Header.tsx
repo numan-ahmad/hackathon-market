@@ -46,36 +46,28 @@ const Header = () => {
             src="https://full-stack-ecommerce-clothing-web.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FFeatured1.66abddd4.png&w=128&q=75"
             width="100"
             height="35"
-            decoding="async"
-            data-nimg="1"
-            loading="lazy"
+            unoptimized={true} 
           />
           <Image
             alt="Image"
             src="https://full-stack-ecommerce-clothing-web.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FFeatured2.247cd605.png&w=128&q=75"
             width="100"
             height="35"
-            decoding="async"
-            data-nimg="1"
-            loading="lazy"
+            unoptimized={true} 
           />
           <Image
             alt="Image"
             src="https://full-stack-ecommerce-clothing-web.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FFeatured3.6076521d.png&w=128&q=75"
             width="100"
             height="35"
-            decoding="async"
-            data-nimg="1"
-            loading="lazy"
+            unoptimized={true} 
           />
           <Image
             alt="Image"
             src="https://full-stack-ecommerce-clothing-web.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FFeatured4.0489f1fc.png&w=128&q=75"
             width="100"
             height="35"
-            decoding="async"
-            data-nimg="1"
-            loading="lazy"
+            unoptimized={true} 
           />
         </div>
       </div>
@@ -86,7 +78,7 @@ const Header = () => {
             src="https://full-stack-ecommerce-clothing-web.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fheader.a3d3ccd9.png&w=750&q=75"
             width="650"
             height="650"
-            loading="lazy"
+            unoptimized={true} 
           />
         </div>
       </div>

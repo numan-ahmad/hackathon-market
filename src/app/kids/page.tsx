@@ -26,7 +26,9 @@ export default async function Home() {
                     width="600"
                     height="600"
                     className="h-[291px] w-[275px] object-cover bg-blue-100"
-                    src={urlFor(data.image).url()}                  />
+                    src={urlFor(data.image).url()}
+                    unoptimized={true}           
+                  />
                 </div>
                 <h2 className="mt-2 text-lg font-semibold">{data.title}</h2>
                 <h3 className="mt-1 text-md font-semibold text-gray-500">

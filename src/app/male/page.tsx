@@ -33,6 +33,7 @@ export default async function Home() {
                         width="600"
                         height="600"
                         className="h-[291px] w-[275px] object-cover bg-blue-100"
+                        unoptimized={true} 
                         src={urlFor(data.image).url()}
                       />
                     </div>

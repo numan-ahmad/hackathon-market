@@ -44,6 +44,7 @@ const CartOption = () => {
                     alt=""
                     width="200"
                     height="200"
+                    unoptimized={true} 
                     className="h-[133px] w-[125px] object-cover custom1:h-[160px] custom1:w-[150px] sm:h-[187px] sm:w-[175px]"
                     src="https://full-stack-ecommerce-clothing-web.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fheader.a3d3ccd9.png&w=750&q=75"
                   />
