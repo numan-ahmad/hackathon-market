@@ -1,6 +1,7 @@
 "use client";
 
 import urlFor from "@/helper/imageUrl";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Product({ data }: any) {
@@ -19,7 +20,7 @@ export default function Product({ data }: any) {
             >
               <div>
                 <div>
-                  <img
+                  <Image
                     alt="product"
                     width="600"
                     height="600"

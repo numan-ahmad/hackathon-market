@@ -1,5 +1,6 @@
 "use client";
 import { RootState } from "@/store/store";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useSelector } from 'react-redux'
@@ -19,7 +20,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <Link href="/">
-                <img
+                <Image
                   className="h-8"
                   src="https://hackathon-with-shadcn-ui.vercel.app/_next/image?url=%2FLogo.webp&w=256&q=75"
                   alt="Logo"

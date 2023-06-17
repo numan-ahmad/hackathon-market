@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const Details = () => {
@@ -65,7 +66,7 @@ const Details = () => {
             className="flex basis-full flex-col items-center space-x-3 space-y-10 sm:flex-row sm:space-y-0 xl:basis-1/2 xl:items-stretch xl:space-x-8"
           >
             <div className="flex basis-2/5 xl:basis-3/5">
-              <img
+              <Image
                 alt="feature bg-blue-100"
                 width="325"
                 height="400"

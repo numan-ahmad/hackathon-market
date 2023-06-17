@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import urlFor from "@/helper/imageUrl";
 import Link from "next/link";
+import Image from "next/image";
 
 const getAllProducts = async () => {
   const res = await client.fetch("*[_type== 'products' && gender == 'Kids']");
@@ -16,11 +17,11 @@ export default async function Home() {
       <Navbar />
       <div className="mx-auto flex max-w-[1560px] flex-wrap justify-center gap-5 px-5 py-12 sm:px-10 md:px-16 lg:px-20">
         {data.length &&
-          data.map((data: any) => (
-            <Link className="z-20 transform-gpu cursor-pointer transition-transform duration-500 ease-in-out hover:scale-110 md:block" href={`/products/${data._id}`}>
+          data.map((data: any, index: number) => (
+            <Link key={index} className="z-20 transform-gpu cursor-pointer transition-transform duration-500 ease-in-out hover:scale-110 md:block" href={`/products/${data._id}`}>
               <div>
                 <div>
-                  <img
+                  <Image
                     alt="product"
                     width="600"
                     height="600"

@@ -1,6 +1,7 @@
 "use client";
 import getStripePromise from "@/lib/stripe";
 import { RootState } from "@/store/store";
+import Image from "next/image";
 import { useSelector } from "react-redux";
 
 const CartOption = () => {
@@ -39,7 +40,7 @@ const CartOption = () => {
             <div className="flex flex-col space-y-10 rounded-md bg-gray-50 p-5 sm:flex-row sm:items-stretch sm:space-x-10 sm:space-y-0">
               <div className="flex flex-row justify-between sm:basis-1/3">
                 <div className="w-fit overflow-hidden rounded-xl bg-blue-100">
-                  <img
+                  <Image
                     alt=""
                     width="200"
                     height="200"

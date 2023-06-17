@@ -1,10 +1,12 @@
+import Image from "next/image";
+
 const Footer = () => {
   return (
     <div className="mt-5">
       <div className="flex w-[60%] flex-col items-start justify-between space-y-10 px-5 py-4 sm:px-10 md:px-16 md:py-8 lg:mx-auto lg:w-[100%] lg:flex-row lg:space-x-32 lg:space-y-0 lg:px-20">
         <div className="flex basis-2/5 flex-col space-y-8">
           <a className="cursor-pointer" href="/">
-            <img
+            <Image
               alt="logo"
               fetchPriority="high"
               width="136"

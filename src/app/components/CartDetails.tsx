@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { client } from "@/lib/sanityClient";
 import urlFor from "@/helper/imageUrl";
 import React, { Suspense, useEffect, useState } from "react";
+import Image from "next/image";
 
 const getProductDetail = async (id: number) => {
   const res = await client.fetch(`*[_type== 'products' && _id=='${id}'][0]`);
@@ -63,28 +64,28 @@ const CartDetails = React.memo(({ productId }: { productId: number }) => {
                 <div className="w-full basis-8/12">
                   <div className="flex w-full space-x-10 justify-between">
                     <div className="flex flex-col space-y-4 min-w-[50px] custom1:min-w-[80px] sm:min-w-[100px]">
-                      <img
+                      <Image
                         alt="product image"
                         width="100"
                         height="100"
                         className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
                         src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
                       />
-                      <img
+                      <Image
                         alt="product image"
                         width="100"
                         height="100"
                         className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
                         src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
                       />
-                      <img
+                      <Image
                         alt="product image"
                         width="100"
                         height="100"
                         className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
                         src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
                       />
-                      <img
+                      <Image
                         alt="product image"
                         width="100"
                         height="100"
@@ -93,7 +94,7 @@ const CartDetails = React.memo(({ productId }: { productId: number }) => {
                       />
                     </div>
                     <div className="overflow-hidden">
-                      <img
+                      <Image
                         alt="product image"
                         width="600"
                         height="500"

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Prromotions = () => {
   return (
     <div className="flex w-full flex-col items-center justify-center space-y-10 pt-6">
@@ -13,7 +15,7 @@ const Prromotions = () => {
               </p>
               <p className="text-lg font-normal">For the summer season</p>
             </div>
-            <img
+            <Image
               alt="promotion1"
               width="282"
               height="218"
@@ -40,7 +42,7 @@ const Prromotions = () => {
                 <span className="ml-3 font-semibold">$75.00</span>
               </p>
             </div>
-            <img
+            <Image
               alt="promotion2"
               width="282"
               height="362"
@@ -56,7 +58,7 @@ const Prromotions = () => {
                 <span className="ml-3 font-semibold">$190.00</span>
               </p>
             </div>
-            <img
+            <Image
               alt="promotion3"
               width="282"
               height="368"

@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import urlFor from "@/helper/imageUrl";
 import Link from "next/link";
 import { Suspense } from "react";
+import Image from "next/image";
 
 const getAllProducts = async () => {
   const res = await client.fetch("*[_type== 'products' && gender == 'Male']");
@@ -18,15 +19,16 @@ export default async function Home() {
       <div className="mx-auto flex max-w-[1560px] flex-wrap justify-center gap-5 px-5 py-12 sm:px-10 md:px-16 lg:px-20">
         <Suspense fallback={<p>Loading feed...</p>}>
           {data.length &&
-            data.map((data: any) => (
+            data.map((data: any, index: number) => (
               <Link
                 className="z-20 transform-gpu cursor-pointer transition-transform duration-500 ease-in-out hover:scale-110 md:block"
                 href={`/products/${data._id}`}
+                key={index}
               >
                 <div>
                   <Suspense fallback={<p>Loading feed...</p>}>
                     <div>
-                      <img
+                      <Image
                         alt="product"
                         width="600"
                         height="600"
