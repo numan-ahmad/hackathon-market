@@ -9,6 +9,8 @@ import Image from "next/image";
 
 const CartDetails =({ product }: any) => {
   const [quality, setQuality] = useState(1);
+  const [activeSize, setActiveSize] = useState('M');
+
   const data = product;
   const dispatch = useDispatch();
 
@@ -105,19 +107,19 @@ const CartDetails =({ product }: any) => {
                     <div className="flex flex-col space-y-3">
                       <p className="text-sm font-semibold">SELECT SIZE</p>
                       <div className="flex flex-wrap gap-5">
-                        <p className="w-10 cursor-pointer rounded-full p-2 text-center bg-gray-200">
+                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'XS' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('XS')}>
                           XS
                         </p>
-                        <p className="w-10 cursor-pointer rounded-full p-2 text-center bg-gray-200">
+                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'S' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('S')}>
                           S
                         </p>
-                        <p className="w-10 cursor-pointer rounded-full p-2 text-center bg-[#212121] text-white">
+                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'M' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('M')}>
                           M
                         </p>
-                        <p className="w-10 cursor-pointer rounded-full p-2 text-center bg-gray-200">
+                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'L' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('L')}>
                           L
                         </p>
-                        <p className="w-10 cursor-pointer rounded-full p-2 text-center bg-gray-200">
+                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'XL' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('XL')}>
                           XL
                         </p>
                       </div>
