@@ -2,9 +2,17 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface CounterState {
-  items: [],
-  totalAmount: number,
-  totalCount: number
+  items: Product [];
+  totalAmount: number;
+  totalCount: number;
+}
+
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  gender: string;
+
 }
 
 const initialState: CounterState = {
@@ -18,10 +26,23 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addTocart: (state, action: PayloadAction<any>) => {
+      const productDetails: Product = action.payload.product;
         state.totalCount += action.payload.quantity;
+        if(state.items.length) {
+          const checkDuplicate = state.items.find((product) => product._id === productDetails._id);
+          if(!checkDuplicate) {
+            state.items.unshift(productDetails)
+          }
+        } else {
+          state.items.unshift(productDetails)
+        }
     },
     removeFromCart: (state, action :PayloadAction<any>) => {
-        state.totalCount -= action.payload.quantity;
+        // state.totalCount -= action.payload.quantity;
+        state.items = state.items.filter(obj => obj._id !== action.payload.id);
+        if(!state.items.length) {
+          state.totalCount = 0;
+        }
     },
     clearcart: (state) => {
         state = initialState

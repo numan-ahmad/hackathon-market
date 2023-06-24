@@ -1,10 +1,14 @@
 "use client";
+import urlFor from "@/helper/imageUrl";
 import getStripePromise from "@/lib/stripe";
 import { RootState } from "@/store/store";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "@/store/slice/cartSlice";
 
 const CartOption = () => {
+  const dispatch = useDispatch();
   const handlecheckout = async () => {
     const stripe = await getStripePromise();
     const products = [
@@ -23,11 +27,15 @@ const CartOption = () => {
     });
     const data = await response.json();
     if (data.session) {
-      console.log("dasdasdasdasdasdasdasdasdasdasda");
       stripe?.redirectToCheckout({ sessionId: data.session.id });
     }
   };
+  const removeProduct = (id: string) => {
+    toast.success("Successfully removed!");
+    dispatch(cartActions.removeFromCart({id}));
+  }
   const count = useSelector((state: RootState) => state.cart.totalCount);
+  const productStore = useSelector((state: RootState) => state.cart.items);
 
   return (
     <div className="mx-auto mt-6 flex max-w-[1560px] flex-col space-y-12 px-5 sm:px-10 md:px-16 lg:px-20">
@@ -36,116 +44,123 @@ const CartOption = () => {
       </div>
       {count > 0 ? (
         <div className="flex flex-col space-y-10 lg:flex-row lg:justify-between lg:space-x-10 lg:space-y-0 xl:space-x-14">
-          <div className="basis-full flex-col space-y-5 lg:basis-4/5 xl:basis-2/3">
-            <div className="flex flex-col space-y-10 rounded-md bg-gray-50 p-5 sm:flex-row sm:items-stretch sm:space-x-10 sm:space-y-0">
-              <div className="flex flex-row justify-between sm:basis-1/3">
-                <div className="w-fit overflow-hidden rounded-xl bg-blue-100">
-                  <Image
-                    alt=""
-                    width="200"
-                    height="200"
-                    unoptimized={true} 
-                    className="h-[133px] w-[125px] object-cover custom1:h-[160px] custom1:w-[150px] sm:h-[187px] sm:w-[175px]"
-                    src="https://full-stack-ecommerce-clothing-web.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fheader.a3d3ccd9.png&w=750&q=75"
-                  />
+          <div
+            className="basis-full flex-col space-y-5 lg:basis-4/5 xl:basis-2/3"
+          >
+            {productStore.length &&
+              productStore.map((item:any, index) => (
+                <div className="flex flex-col space-y-10 rounded-md bg-gray-50 p-5 sm:flex-row sm:items-stretch sm:space-x-10 sm:space-y-0" key={index}>
+                  <div className="flex flex-row justify-between sm:basis-1/3">
+                    <div className="w-fit overflow-hidden rounded-xl bg-blue-100">
+                      <Image
+                        alt=""
+                        width="200"
+                        height="200"
+                        unoptimized={true}
+                        className="h-[133px] w-[125px] object-cover custom1:h-[160px] custom1:w-[150px] sm:h-[187px] sm:w-[175px]"
+                        src={urlFor(item.image).url()}                      />
+                    </div>
+                    <div className="inline-flex flex-col items-end justify-between sm:hidden">
+                      <button className="cursor-pointer">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="25"
+                          height="25"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-trash2"
+                        >
+                          <path d="M3 6h18"></path>
+                          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                          <line x1="10" x2="10" y1="11" y2="17"></line>
+                          <line x1="14" x2="14" y1="11" y2="17"></line>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex flex-col space-y-3 sm:basis-2/3 sm:justify-between sm:space-y-0">
+                    <div className="text-xl font-medium sm:flex sm:items-center sm:justify-between sm:space-x-5">
+                      <span> {item?.title} </span>
+                      <button className="hidden sm:block cursor-pointer" onClick={() => removeProduct(item?._id)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="25"
+                          height="25"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-trash2"
+                        >
+                          <path d="M3 6h18"></path>
+                          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                          <line x1="10" x2="10" y1="11" y2="17"></line>
+                          <line x1="14" x2="14" y1="11" y2="17"></line>
+                        </svg>
+                      </button>
+                    </div>
+                    <p className="inline-flex space-x-5 text-base font-semibold text-[#666]">
+                      <span>Sweater</span>
+                      <span>(M)</span>
+                    </p>
+                    <p className="text-base font-semibold">
+                      Delivery Estimation
+                    </p>
+                    <div className="h-[26px] text-base font-semibold text-[#ffc700] sm:flex sm:items-center sm:justify-between sm:space-x-5">
+                      <span>5 Working Days</span>
+                    </div>
+                    <p className="inline-flex items-center justify-between">
+                      <span className="text-lg font-bold">$ {item?.price}</span>
+                      {/* <span className="inline-flex items-center justify-between space-x-1">
+                      <span className="w-fitt cursor-pointer rounded-full bg-gray-200 p-2 text-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="gray"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-minus"
+                        >
+                          <line x1="5" x2="19" y1="12" y2="12"></line>
+                        </svg>
+                      </span>
+                      <span className="w-10 text-center">1</span>
+                      <span className="w-fitt cursor-pointer rounded-full bg-gray-200 p-2 text-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="gray"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-plus"
+                        >
+                          <line x1="12" x2="12" y1="5" y2="19"></line>
+                          <line x1="5" x2="19" y1="12" y2="12"></line>
+                        </svg>
+                      </span>
+                    </span> */}
+                    </p>
+                  </div>
                 </div>
-                <div className="inline-flex flex-col items-end justify-between sm:hidden">
-                  <button className="cursor-pointer">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="25"
-                      height="25"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-trash2"
-                    >
-                      <path d="M3 6h18"></path>
-                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                      <line x1="10" x2="10" y1="11" y2="17"></line>
-                      <line x1="14" x2="14" y1="11" y2="17"></line>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div className="flex flex-col space-y-3 sm:basis-2/3 sm:justify-between sm:space-y-0">
-                <div className="text-xl font-medium sm:flex sm:items-center sm:justify-between sm:space-x-5">
-                  <span>Brushed Raglan Sweatshirt</span>
-                  <button className="hidden sm:block cursor-pointer">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="25"
-                      height="25"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-trash2"
-                    >
-                      <path d="M3 6h18"></path>
-                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                      <line x1="10" x2="10" y1="11" y2="17"></line>
-                      <line x1="14" x2="14" y1="11" y2="17"></line>
-                    </svg>
-                  </button>
-                </div>
-                <p className="inline-flex space-x-5 text-base font-semibold text-[#666]">
-                  <span>Sweater</span>
-                  <span>(M)</span>
-                </p>
-                <p className="text-base font-semibold">Delivery Estimation</p>
-                <div className="h-[26px] text-base font-semibold text-[#ffc700] sm:flex sm:items-center sm:justify-between sm:space-x-5">
-                  <span>5 Working Days</span>
-                </div>
-                <p className="inline-flex items-center justify-between">
-                  <span className="text-lg font-bold">$195</span>
-                  {/* <span className="inline-flex items-center justify-between space-x-1">
-                    <span className="w-fitt cursor-pointer rounded-full bg-gray-200 p-2 text-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="gray"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-minus"
-                      >
-                        <line x1="5" x2="19" y1="12" y2="12"></line>
-                      </svg>
-                    </span>
-                    <span className="w-10 text-center">1</span>
-                    <span className="w-fitt cursor-pointer rounded-full bg-gray-200 p-2 text-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="gray"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-plus"
-                      >
-                        <line x1="12" x2="12" y1="5" y2="19"></line>
-                        <line x1="5" x2="19" y1="12" y2="12"></line>
-                      </svg>
-                    </span>
-                  </span> */}
-                </p>
-              </div>
-            </div>
+              ))}
           </div>
+
           <div className="basis-full lg:basis-1/5 xl:basis-1/3">
             <div className="flex flex-col items-center justify-center space-y-7 rounded-md bg-gray-100 p-5 text-[#181818]">
               <p className="w-full text-xl font-bold">Order Summary</p>

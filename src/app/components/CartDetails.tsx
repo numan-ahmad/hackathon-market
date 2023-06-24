@@ -2,7 +2,6 @@
 import { useDispatch } from "react-redux";
 import { cartActions } from "@/store/slice/cartSlice";
 import toast from "react-hot-toast";
-import { client } from "@/lib/sanityClient";
 import urlFor from "@/helper/imageUrl";
 import React, { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
@@ -16,7 +15,7 @@ const CartDetails =({ product }: any) => {
 
   const addToCart = () => {
     toast.success("Successfully added!");
-    dispatch(cartActions.addTocart({ quantity: 1 }));
+    dispatch(cartActions.addTocart({ quantity: quality, product }));
   };
 
   const pluseQuality = () => {
