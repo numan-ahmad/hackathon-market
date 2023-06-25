@@ -7,24 +7,33 @@ import React, { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 
 const CartDetails =({ product }: any) => {
-  const [quality, setQuality] = useState(1);
+  const [quantity, setquantity] = useState(1);
   const [activeSize, setActiveSize] = useState('M');
 
   const data = product;
   const dispatch = useDispatch();
 
-  const addToCart = () => {
+  const addToCart = async () => {
+    dispatch(cartActions.addTocart({ quantity, product }));
+    const res = await fetch("/api/cart", {
+      method: "POST",
+      body: JSON.stringify({
+        product,
+        quantity
+      })
+    })
+    const result = await res.json();
+    console.log(result);
     toast.success("Successfully added!");
-    dispatch(cartActions.addTocart({ quantity: quality, product }));
   };
 
-  const pluseQuality = () => {
-    setQuality(quality + 1);
+  const plusequantity = () => {
+    setquantity(quantity + 1);
   };
 
-  const minesQuality = () => {
-    if (quality > 1) {
-      setQuality(quality - 1);
+  const minesquantity = () => {
+    if (quantity > 1) {
+      setquantity(quantity - 1);
     }
   };
 
@@ -52,32 +61,7 @@ const CartDetails =({ product }: any) => {
                         height="100"
                         unoptimized={true} 
                         className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
-                        src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
-                      />
-                      <Image
-                        alt="product image"
-                        width="100"
-                        height="100"
-                        unoptimized={true} 
-                        className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
-                        src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
-                      />
-                      <Image
-                        alt="product image"
-                        width="100"
-                        height="100"
-                        unoptimized={true} 
-                        className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
-                        src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
-                      />
-                      <Image
-                        alt="product image"
-                        width="100"
-                        height="100"
-                        unoptimized={true} 
-                        className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
-                        src="https://hackathon-dine-market.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fzwnaaffj%2Fproduction%2F678c1dd51d26380191c9eef7f59e852522491f78-134x143.png%3Fw%3D700&w=750&q=75"
-                      />
+                        src={urlFor(data.image).url()}                      />
                     </div>
                     <div className="overflow-hidden">
                       <Image
@@ -128,7 +112,7 @@ const CartDetails =({ product }: any) => {
                       <div className="inline-flex items-center justify-between space-x-3">
                         <span
                           className="w-fitt cursor-pointer rounded-full bg-gray-200 p-2 text-center"
-                          onClick={minesQuality}
+                          onClick={minesquantity}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -145,10 +129,10 @@ const CartDetails =({ product }: any) => {
                             <line x1="5" x2="19" y1="12" y2="12"></line>
                           </svg>
                         </span>
-                        <span className="w-10 text-center">{quality}</span>
+                        <span className="w-10 text-center">{quantity}</span>
                         <span
                           className="w-fitt cursor-pointer rounded-full bg-gray-200 p-2 text-center"
-                          onClick={pluseQuality}
+                          onClick={plusequantity}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -169,8 +153,8 @@ const CartDetails =({ product }: any) => {
                       </div>
                     </div>
                     <div className="flex items-center space-x-5">
-                      <p className="text-sm font-semibold">Total :</p>
-                      <p className="text-lg font-semibold">$545.00</p>
+                      <p className="text-sm font-semibold">Price :</p>
+                      <p className="text-lg font-semibold">${data.price}</p>
                     </div>
                     <div className="flex items-center space-x-5">
                       <button

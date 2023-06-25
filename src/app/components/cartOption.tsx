@@ -30,9 +30,14 @@ const CartOption = () => {
       stripe?.redirectToCheckout({ sessionId: data.session.id });
     }
   };
-  const removeProduct = (id: string) => {
-    toast.success("Successfully removed!");
+  const removeProduct = async (id: string) => {
+    const res = await fetch(`/api/cart?id=${id}`, {
+      method: "DELETE",
+    })
+    const result = await res.json();
+    console.log(result);
     dispatch(cartActions.removeFromCart({id}));
+    toast.success("Successfully removed!");
   }
   const count = useSelector((state: RootState) => state.cart.totalCount);
   const productStore = useSelector((state: RootState) => state.cart.items);
