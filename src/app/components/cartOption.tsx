@@ -9,6 +9,7 @@ import { cartActions } from "@/store/slice/cartSlice";
 
 const CartOption = () => {
   const dispatch = useDispatch();
+
   const handlecheckout = async () => {
     const stripe = await getStripePromise();
     const products = [
@@ -33,12 +34,11 @@ const CartOption = () => {
   const removeProduct = async (id: string) => {
     const res = await fetch(`/api/cart?id=${id}`, {
       method: "DELETE",
-    })
+    });
     const result = await res.json();
-    console.log(result);
-    dispatch(cartActions.removeFromCart({id}));
+    dispatch(cartActions.removeFromCart({ id }));
     toast.success("Successfully removed!");
-  }
+  };
   const count = useSelector((state: RootState) => state.cart.totalCount);
   const productStore = useSelector((state: RootState) => state.cart.items);
 
@@ -47,14 +47,15 @@ const CartOption = () => {
       <div className="text-left text-3xl font-bold text-[#212121]">
         Shopping Cart
       </div>
-      {count > 0 ? (
+      {count > 0 && productStore.length ? (
         <div className="flex flex-col space-y-10 lg:flex-row lg:justify-between lg:space-x-10 lg:space-y-0 xl:space-x-14">
-          <div
-            className="basis-full flex-col space-y-5 lg:basis-4/5 xl:basis-2/3"
-          >
+          <div className="basis-full flex-col space-y-5 lg:basis-4/5 xl:basis-2/3">
             {productStore.length &&
-              productStore.map((item:any, index) => (
-                <div className="flex flex-col space-y-10 rounded-md bg-gray-50 p-5 sm:flex-row sm:items-stretch sm:space-x-10 sm:space-y-0" key={index}>
+              productStore.map((item: any, index: number) => (
+                <div
+                  className="flex flex-col space-y-10 rounded-md bg-gray-50 p-5 sm:flex-row sm:items-stretch sm:space-x-10 sm:space-y-0"
+                  key={index}
+                >
                   <div className="flex flex-row justify-between sm:basis-1/3">
                     <div className="w-fit overflow-hidden rounded-xl bg-blue-100">
                       <Image
@@ -63,7 +64,8 @@ const CartOption = () => {
                         height="200"
                         unoptimized={true}
                         className="h-[133px] w-[125px] object-cover custom1:h-[160px] custom1:w-[150px] sm:h-[187px] sm:w-[175px]"
-                        src={urlFor(item.image).url()}                      />
+                        src={urlFor(item.image).url()}
+                      />
                     </div>
                     <div className="inline-flex flex-col items-end justify-between sm:hidden">
                       <button className="cursor-pointer">
@@ -91,7 +93,10 @@ const CartOption = () => {
                   <div className="flex flex-col space-y-3 sm:basis-2/3 sm:justify-between sm:space-y-0">
                     <div className="text-xl font-medium sm:flex sm:items-center sm:justify-between sm:space-x-5">
                       <span> {item?.title} </span>
-                      <button className="hidden sm:block cursor-pointer" onClick={() => removeProduct(item?._id)}>
+                      <button
+                        className="hidden sm:block cursor-pointer"
+                        onClick={() => removeProduct(item?._id)}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="25"
@@ -171,7 +176,7 @@ const CartOption = () => {
               <p className="w-full text-xl font-bold">Order Summary</p>
               <p className="inline-flex w-full justify-between text-base font-normal">
                 <span>Quantity</span>
-                <span>1 Product</span>
+                <span>{count} Product</span>
               </p>
               <p className="inline-flex w-full justify-between text-base font-normal">
                 <span>Sub Total</span>
