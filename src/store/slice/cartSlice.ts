@@ -27,7 +27,7 @@ export const cartSlice = createSlice({
     addTocart: (state, action: PayloadAction<any>) => {
       const productDetails: Product = action.payload.product;
       if (state.items.length) {
-        const checkDuplicate = state.items.find(
+        const checkDuplicate: any = state.items.find(
           (product) => product._id === productDetails._id
         );
         if (!checkDuplicate) {
@@ -35,6 +35,10 @@ export const cartSlice = createSlice({
           state.totalAmount +=action.payload?.total;
           const newProduct = {...productDetails, quantity: action.payload.quantity}
           state.items.unshift(newProduct);
+        } else {
+          checkDuplicate.quantity += action.payload.quantity;
+          state.totalAmount +=action.payload?.total;
+          state.totalCount += action.payload.quantity;
         }
       } else {
         const newProduct = {...productDetails, quantity: action.payload.quantity}
