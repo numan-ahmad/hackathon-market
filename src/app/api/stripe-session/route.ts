@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
                 quantity: item.quantity,
             };
         }),
-        success_url: `${request.headers.get("origin")}/?success=true`,
+        success_url: `${request.headers.get("origin")}/success`,
         cancel_url: `${request.headers.get("origin")}/`,
       });
       return NextResponse.json({ session });

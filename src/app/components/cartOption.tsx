@@ -27,10 +27,9 @@ const CartOption = () => {
     }
   };
   const removeProduct = async (id: string, quantity: number, price: number) => {
-    const res = await fetch(`/api/cart?id=${id}`, {
+    await fetch(`/api/cart?id=${id}`, {
       method: "DELETE",
     });
-    const result = await res.json();
     dispatch(cartActions.removeFromCart({ id,  quantity, price: price*quantity}));
     toast.success("Successfully removed!");
   };

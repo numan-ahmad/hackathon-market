@@ -15,11 +15,14 @@ export const DELETE = async (request: NextRequest) => {
   const req = request.nextUrl;
   const id = req.searchParams.get("id") as string;
   try {
-    const res = await db
-      .delete(cartTable)
-      .where(eq(cartTable.product_id, id))
-      .returning();
-    return NextResponse.json({ message: "successfuly Deleted", res });
+    if(id) {
+      await db
+        .delete(cartTable)
+        .where(eq(cartTable.product_id, id))
+    } else {
+      await db.delete(cartTable);
+    }
+    return NextResponse.json({ message: "successfuly Deleted" });
   } catch (err) {
     return NextResponse.json({ message: "faild to delete", err });
   }
