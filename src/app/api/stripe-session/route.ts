@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
                 price_data: {
                     currency: 'pkr',
                     product_data: {
-                        name: item.name,
+                        name: item.title,
                     },
                     unit_amount: item.price * 100,
                 },

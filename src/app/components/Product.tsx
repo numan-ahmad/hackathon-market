@@ -17,15 +17,35 @@ export default function Product({ data }: any) {
         });
         if (response.ok) {
           const cartResponse = await response.json();
-          console.log(cartResponse.res, 'dsadasdas')
-          const filteredArray =
-            data.length &&
-            data.filter((item: any) =>
+          const totalQuantity = cartResponse.res.reduce(
+            (total: number, item: any) => total + item.quantity,
+            0
+          );
+          const totalPrice = cartResponse.res.reduce(
+            (total: number, item: any) => {
+              const { quantity, price } = item;
+              const itemPrice = quantity * price;
+              return total + itemPrice;
+            },
+            0
+          );
+          console.log(totalQuantity, "dsadasdas");
+          const filteredArray = data
+            .filter((item: any) =>
               cartResponse.res.some(
-                (filterItem: any) => filterItem.product_id === item._id
+                (filterItem :any) => filterItem.product_id === item._id
               )
-            );
-          dispatch(cartActions.addItems({ filteredArray }));
+            )
+            .map((item:any) => {
+              const matchingCartItem = cartResponse.res.find(
+                (filterItem:any) => filterItem.product_id === item._id
+              );
+              return { ...item, quantity: matchingCartItem.quantity };
+            });
+          console.log(filteredArray, 'dsadasdasdas')
+          dispatch(
+            cartActions.addItems({ filteredArray, totalQuantity, totalPrice })
+          );
         } else {
           console.error("Request failed with status:", response);
         }

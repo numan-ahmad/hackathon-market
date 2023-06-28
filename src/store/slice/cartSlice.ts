@@ -31,18 +31,21 @@ export const cartSlice = createSlice({
           (product) => product._id === productDetails._id
         );
         if (!checkDuplicate) {
-          state.totalCount += 1;
+          state.totalCount += action.payload.quantity;
           state.totalAmount +=action.payload?.total;
-          state.items.unshift(productDetails);
+          const newProduct = {...productDetails, quantity: action.payload.quantity}
+          state.items.unshift(newProduct);
         }
       } else {
-        state.items.unshift(productDetails);
-        state.totalCount += 1;
+        const newProduct = {...productDetails, quantity: action.payload.quantity}
+        state.items.unshift(newProduct);
+        state.totalCount += action.payload.quantity;
         state.totalAmount +=action.payload?.total;
       }
     },
     removeFromCart: (state, action: PayloadAction<any>) => {
-      state.totalCount -= 1;
+      state.totalCount -= action.payload?.quantity;
+      state.totalAmount -=action.payload?.price;
       state.items = state.items.filter((obj) => obj._id !== action.payload.id);
       if (!state.items.length) {
         state.totalCount = 0;
@@ -51,7 +54,8 @@ export const cartSlice = createSlice({
     },
     addItems: (state, action: PayloadAction<any>) => {
       state.items = action.payload.filteredArray;
-      state.totalCount = action.payload.filteredArray.length;
+      state.totalCount = action.payload.totalQuantity;
+      state.totalAmount = action.payload.totalPrice;
     },
     clearcart: (state) => {
       state = initialState;

@@ -9,39 +9,31 @@ import { cartActions } from "@/store/slice/cartSlice";
 
 const CartOption = () => {
   const dispatch = useDispatch();
+  const count = useSelector((state: RootState) => state.cart.totalCount);
+  const productStore = useSelector((state: RootState) => state.cart.items);
+  const totalAMount = useSelector((state: RootState) => state.cart.totalAmount);
 
   const handlecheckout = async () => {
     const stripe = await getStripePromise();
-    const products = [
-      {
-        product: 1,
-        name: "shirt",
-        price: 440,
-        quantity: 3,
-      },
-    ];
     const response = await fetch("/api/stripe-session/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       cache: "no-cache",
-      body: JSON.stringify(products),
+      body: JSON.stringify(productStore),
     });
     const data = await response.json();
     if (data.session) {
       stripe?.redirectToCheckout({ sessionId: data.session.id });
     }
   };
-  const removeProduct = async (id: string) => {
+  const removeProduct = async (id: string, quantity: number, price: number) => {
     const res = await fetch(`/api/cart?id=${id}`, {
       method: "DELETE",
     });
     const result = await res.json();
-    dispatch(cartActions.removeFromCart({ id }));
+    dispatch(cartActions.removeFromCart({ id,  quantity, price: price*quantity}));
     toast.success("Successfully removed!");
   };
-  const count = useSelector((state: RootState) => state.cart.totalCount);
-  const productStore = useSelector((state: RootState) => state.cart.items);
-  const totalAMount = useSelector((state: RootState) => state.cart.totalAmount);
 
   return (
     <div className="mx-auto mt-6 flex max-w-[1560px] flex-col space-y-12 px-5 sm:px-10 md:px-16 lg:px-20">
@@ -96,7 +88,7 @@ const CartOption = () => {
                       <span> {item?.title} </span>
                       <button
                         className="hidden sm:block cursor-pointer"
-                        onClick={() => removeProduct(item?._id)}
+                        onClick={() => removeProduct(item?._id, item?.quantity, item?.price)}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -121,6 +113,10 @@ const CartOption = () => {
                     <p className="inline-flex space-x-5 text-base font-semibold text-[#666]">
                       <span>Sweater</span>
                       <span>(M)</span>
+                    </p>
+                    <p className="inline-flex space-x-5 text-base font-semibold text-[#666]">
+                      <span>Quantity: </span>
+                      <span>{item?.quantity}</span>
                     </p>
                     <p className="text-base font-semibold">
                       Delivery Estimation
