@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (request: NextRequest) => {
   try {
     const res = await db.select().from(cartTable);
-    return NextResponse.json({ message: "successfuly", res });
+    return NextResponse.json({ message: "successful", res });
   } catch (err) {
     return NextResponse.json({ message: "Somthing went wrong!", err });
   }

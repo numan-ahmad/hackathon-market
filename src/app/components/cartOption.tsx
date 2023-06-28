@@ -41,6 +41,7 @@ const CartOption = () => {
   };
   const count = useSelector((state: RootState) => state.cart.totalCount);
   const productStore = useSelector((state: RootState) => state.cart.items);
+  const totalAMount = useSelector((state: RootState) => state.cart.totalAmount);
 
   return (
     <div className="mx-auto mt-6 flex max-w-[1560px] flex-col space-y-12 px-5 sm:px-10 md:px-16 lg:px-20">
@@ -180,7 +181,7 @@ const CartOption = () => {
               </p>
               <p className="inline-flex w-full justify-between text-base font-normal">
                 <span>Sub Total</span>
-                <span>$195</span>
+                <span>${totalAMount}</span>
               </p>
               <button
                 className="w-full whitespace-nowrap rounded-md bg-[#212121] px-3 py-2 text-white cursor-pointer"

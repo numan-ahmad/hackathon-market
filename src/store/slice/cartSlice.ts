@@ -32,11 +32,13 @@ export const cartSlice = createSlice({
         );
         if (!checkDuplicate) {
           state.totalCount += 1;
+          state.totalAmount +=action.payload?.total;
           state.items.unshift(productDetails);
         }
       } else {
         state.items.unshift(productDetails);
         state.totalCount += 1;
+        state.totalAmount +=action.payload?.total;
       }
     },
     removeFromCart: (state, action: PayloadAction<any>) => {
@@ -44,6 +46,7 @@ export const cartSlice = createSlice({
       state.items = state.items.filter((obj) => obj._id !== action.payload.id);
       if (!state.items.length) {
         state.totalCount = 0;
+        state.totalAmount = 0;
       }
     },
     addItems: (state, action: PayloadAction<any>) => {

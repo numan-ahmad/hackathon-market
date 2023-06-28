@@ -6,34 +6,38 @@ import urlFor from "@/helper/imageUrl";
 import React, { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 
-const CartDetails =({ product }: any) => {
+const CartDetails = ({ product }: any) => {
   const [quantity, setquantity] = useState(1);
-  const [activeSize, setActiveSize] = useState('M');
+  const [activeSize, setActiveSize] = useState("M");
+  const [total, setTotal] = useState(product.price);
 
   const data = product;
   const dispatch = useDispatch();
 
   const addToCart = async () => {
-    dispatch(cartActions.addTocart({ quantity, product }));
+    dispatch(cartActions.addTocart({ quantity, product, total }));
     const res = await fetch("/api/cart", {
       method: "POST",
       body: JSON.stringify({
         product,
-        quantity
-      })
-    })
+        quantity,
+      }),
+    });
     const result = await res.json();
-    console.log(result);
     toast.success("Successfully added!");
   };
 
   const plusequantity = () => {
     setquantity(quantity + 1);
+    setTotal(total + data.price);
   };
 
   const minesquantity = () => {
     if (quantity > 1) {
       setquantity(quantity - 1);
+      setTotal(total - data.price);
+    } else {
+      setTotal(data.price);
     }
   };
 
@@ -59,16 +63,17 @@ const CartDetails =({ product }: any) => {
                         alt="product image"
                         width="100"
                         height="100"
-                        unoptimized={true} 
+                        unoptimized={true}
                         className="cursor-pointer object-cover w-[50px] h-auto custom1:min-w-[80px] sm:min-w-[100px] bg-blue-100"
-                        src={urlFor(data.image).url()}                      />
+                        src={urlFor(data.image).url()}
+                      />
                     </div>
                     <div className="overflow-hidden">
                       <Image
                         alt="product image"
                         width="600"
                         height="500"
-                        unoptimized={true} 
+                        unoptimized={true}
                         className="object-cover rounded-xl bg-blue-100"
                         src={urlFor(data.image).url()}
                       />
@@ -90,19 +95,54 @@ const CartDetails =({ product }: any) => {
                     <div className="flex flex-col space-y-3">
                       <p className="text-sm font-semibold">SELECT SIZE</p>
                       <div className="flex flex-wrap gap-5">
-                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'XS' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('XS')}>
+                        <p
+                          className={`w-10 cursor-pointer rounded-full p-2 text-center ${
+                            activeSize === "XS"
+                              ? "bg-[#212121] text-white"
+                              : "bg-gray-200"
+                          }`}
+                          onClick={() => setActiveSize("XS")}
+                        >
                           XS
                         </p>
-                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'S' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('S')}>
+                        <p
+                          className={`w-10 cursor-pointer rounded-full p-2 text-center ${
+                            activeSize === "S"
+                              ? "bg-[#212121] text-white"
+                              : "bg-gray-200"
+                          }`}
+                          onClick={() => setActiveSize("S")}
+                        >
                           S
                         </p>
-                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'M' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('M')}>
+                        <p
+                          className={`w-10 cursor-pointer rounded-full p-2 text-center ${
+                            activeSize === "M"
+                              ? "bg-[#212121] text-white"
+                              : "bg-gray-200"
+                          }`}
+                          onClick={() => setActiveSize("M")}
+                        >
                           M
                         </p>
-                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'L' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('L')}>
+                        <p
+                          className={`w-10 cursor-pointer rounded-full p-2 text-center ${
+                            activeSize === "L"
+                              ? "bg-[#212121] text-white"
+                              : "bg-gray-200"
+                          }`}
+                          onClick={() => setActiveSize("L")}
+                        >
                           L
                         </p>
-                        <p className={`w-10 cursor-pointer rounded-full p-2 text-center ${activeSize === 'XL' ? 'bg-[#212121] text-white' : 'bg-gray-200'}`} onClick={() => setActiveSize('XL')}>
+                        <p
+                          className={`w-10 cursor-pointer rounded-full p-2 text-center ${
+                            activeSize === "XL"
+                              ? "bg-[#212121] text-white"
+                              : "bg-gray-200"
+                          }`}
+                          onClick={() => setActiveSize("XL")}
+                        >
                           XL
                         </p>
                       </div>
@@ -153,8 +193,8 @@ const CartDetails =({ product }: any) => {
                       </div>
                     </div>
                     <div className="flex items-center space-x-5">
-                      <p className="text-sm font-semibold">Price :</p>
-                      <p className="text-lg font-semibold">${data.price}</p>
+                      <p className="text-sm font-semibold">Total :</p>
+                      <p className="text-lg font-semibold">${total}</p>
                     </div>
                     <div className="flex items-center space-x-5">
                       <button
