@@ -60,7 +60,7 @@ const CartOption = () => {
                       />
                     </div>
                     <div className="inline-flex flex-col items-end justify-between sm:hidden">
-                      <button className="cursor-pointer">
+                      <button className="cursor-pointer" onClick={() => removeProduct(item?._id, item?.quantity, item?.price)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="25"
