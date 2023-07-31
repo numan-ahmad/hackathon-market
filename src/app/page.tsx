@@ -15,7 +15,7 @@ export default async function Home() {
   const data = await getAllProducts();
   return (
     <>
-      <Navbar />
+      <Navbar data={data}/>
       <div className="mx-auto flex max-w-[1560px] flex-col space-y-24 px-5 sm:px-10 md:px-16 lg:px-20">
         <Header />
         <Prromotions />

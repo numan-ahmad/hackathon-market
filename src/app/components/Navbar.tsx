@@ -3,9 +3,12 @@ import { RootState } from "@/store/store";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import useCartData from "./useCartData";
 
-const Navbar = () => {
+const Navbar = ({ data }: any) => {
+  const dispatch = useDispatch();
+  useCartData(dispatch);
   const [expanded, setExpanded] = useState(false);
   const count = useSelector((state: RootState) => state.cart.totalCount)
 

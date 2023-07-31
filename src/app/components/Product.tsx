@@ -1,61 +1,10 @@
 "use client";
 
 import urlFor from "@/helper/imageUrl";
-import { cartActions } from "@/store/slice/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 export default function Product({ data }: any) {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const getCardProducts = async () => {
-      try {
-        const response = await fetch("/api/cart", {
-          method: "GET",
-        });
-        if (response.ok) {
-          const cartResponse = await response.json();
-          const totalQuantity = cartResponse.res.reduce(
-            (total: number, item: any) => total + item.quantity,
-            0
-          );
-          const totalPrice = cartResponse.res.reduce(
-            (total: number, item: any) => {
-              const { quantity, price } = item;
-              const itemPrice = quantity * price;
-              return total + itemPrice;
-            },
-            0
-          );
-          console.log(totalQuantity, "dsadasdas");
-          const filteredArray = data
-            .filter((item: any) =>
-              cartResponse.res.some(
-                (filterItem :any) => filterItem.product_id === item._id
-              )
-            )
-            .map((item:any) => {
-              const matchingCartItem = cartResponse.res.find(
-                (filterItem:any) => filterItem.product_id === item._id
-              );
-              return { ...item, quantity: matchingCartItem.quantity };
-            });
-          console.log(filteredArray, 'dsadasdasdas')
-          dispatch(
-            cartActions.addItems({ filteredArray, totalQuantity, totalPrice })
-          );
-        } else {
-          console.error("Request failed with status:", response);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    getCardProducts();
-  }, []);
   return (
     <div className="flex w-full flex-col items-center justify-center space-y-10 pt-6">
       <p className="text-center text-3xl font-bold text-[##212121]">
